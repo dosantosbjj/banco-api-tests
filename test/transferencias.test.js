@@ -1,17 +1,20 @@
 import { expect } from 'chai'
 import request from 'supertest'
+import dotenv from 'dotenv'
+dotenv.config()
+
 
 describe('Testes de transferência', () => {
     context('POST /transferencias', () => {
         it('Deve transferir R$10,00 ou mais com sucesso', async () => {
-            const respostaLogin = await request('http://localhost:3000')
+            const respostaLogin = await request(process.env.URL)
                 .post('/login')
-                .send({ username: 'lucas.santos', senha: '123456'})
+                .send({ username: process.env.USER_CONTA, senha: process.env.SENHA_CONTA})
                 .set('Content-Type', 'application/json')
                 expect(respostaLogin.status).eq(200)
                 const token = respostaLogin.body.token
 
-            const respostaTransferencia = await request('http://localhost:3000')
+            const respostaTransferencia = await request(process.env.URL)
                 .post('/transferencias')
                 .set('Content-Type','application/json')
                 .set('Authorization',`Bearer ${token}`)
@@ -26,14 +29,14 @@ describe('Testes de transferência', () => {
             })
 
         it('Não deve transferir valores menores de R$10,00', async () => {
-            const respostaLogin = await request('http://localhost:3000')
+            const respostaLogin = await request(process.env.URL)
                 .post('/login')
-                .send({ username: 'lucas.santos', senha: '123456'})
+                .send({ username: process.env.USER_CONTA, senha: process.env.SENHA_CONTA})
                 .set('Content-Type', 'application/json')
             expect(respostaLogin.status).eq(200)
             expect(respostaLogin.body.token).to.be.a('string')
             let token = respostaLogin.body.token
-            const respostaTransferencia = await request('http://localhost:3000')
+            const respostaTransferencia = await request(process.env.URL)
                 .post('/transferencias')
                 .set('Content-Type','application/json')
                 .set('Authorization',`Bearer ${token}`)
