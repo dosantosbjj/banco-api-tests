@@ -9,7 +9,6 @@ describe('Login', () => {
                 .set('Content-Type', 'application/json')
             expect(response.status).eq(200)
             expect(response.body.token).to.be.a('string')
-            request
         })
     })
 })
