@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/**/*.test.js"
+    "test": "mocha ./test/**/*.test.js --reporter mochawesome"
   },
   "type": "module",
   "keywords": [],
@@ -13,6 +13,7 @@
   "dependencies": {
     "chai": "^5.2.0",
     "mocha": "^11.1.0",
+    "mochawesome": "^7.1.4",
     "supertest": "^7.1.0"
   }
 }
