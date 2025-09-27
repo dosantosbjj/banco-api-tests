@@ -1,49 +1,35 @@
+import gerarToken from '../helpers/auth.js'
 import { expect } from 'chai'
 import request from 'supertest'
+import dotenv from 'dotenv'
+dotenv.config()
+import postTransferencias from '../fixtures/post-transferencias.json' assert { type : 'json' }
 
 describe('Testes de transferência', () => {
+    let token 
     context('POST /transferencias', () => {
-        it('Deve transferir R$10,00 ou mais com sucesso', async () => {
-            const respostaLogin = await request('http://localhost:3000')
-                .post('/login')
-                .send({ username: 'lucas.santos', senha: '123456'})
-                .set('Content-Type', 'application/json')
-                expect(respostaLogin.status).eq(200)
-                const token = respostaLogin.body.token
+        beforeEach(async () =>{
+            token = await gerarToken('lucas.santos','123456')
+        })
 
-            const respostaTransferencia = await request('http://localhost:3000')
+        it('Deve transferir R$10,00 ou mais com sucesso', async () => {
+            const bodyTransferencias = { ...postTransferencias }
+            const respostaTransferencia = await request(process.env.URL)
                 .post('/transferencias')
                 .set('Content-Type','application/json')
                 .set('Authorization',`Bearer ${token}`)
-                .send({
-                    contaOrigem: 1,
-                    contaDestino: 2,
-                    valor: 1000,
-                    token: '' 
-                    }
-                )
+                .send(bodyTransferencias)
                 expect(respostaTransferencia.status).eq(201)
             })
 
         it('Não deve transferir valores menores de R$10,00', async () => {
-            const respostaLogin = await request('http://localhost:3000')
-                .post('/login')
-                .send({ username: 'lucas.santos', senha: '123456'})
-                .set('Content-Type', 'application/json')
-            expect(respostaLogin.status).eq(200)
-            expect(respostaLogin.body.token).to.be.a('string')
-            let token = respostaLogin.body.token
-            const respostaTransferencia = await request('http://localhost:3000')
+            const bodyTransferencias = { ...postTransferencias }
+            bodyTransferencias.valor = 7
+            const respostaTransferencia = await request(process.env.URL)
                 .post('/transferencias')
                 .set('Content-Type','application/json')
                 .set('Authorization',`Bearer ${token}`)
-                .send({
-                    contaOrigem: 1,
-                    contaDestino: 2,
-                    valor: 7,
-                    token: '' 
-                    }
-                )
+                .send(bodyTransferencias)
             expect(respostaTransferencia.status).eq(422)
             expect(respostaTransferencia.body.error).to.eq('O valor da transferência deve ser maior ou igual a R$10,00.')
         })
