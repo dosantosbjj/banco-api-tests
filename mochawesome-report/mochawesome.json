@@ -5,9 +5,9 @@
     "passes": 3,
     "pending": 0,
     "failures": 0,
-    "start": "2025-09-26T02:00:55.085Z",
-    "end": "2025-09-26T02:00:55.192Z",
-    "duration": 107,
+    "start": "2025-09-27T15:41:38.550Z",
+    "end": "2025-09-27T15:41:38.616Z",
+    "duration": 66,
     "testsRegistered": 3,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "21244c66-209f-4527-9fdc-4ae783e57cae",
+      "uuid": "285e6907-03c7-4a26-92bb-836d036210ef",
       "title": "",
       "fullFile": "",
       "file": "",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "8759e86e-6f44-45c8-b439-fb43068dbe33",
+          "uuid": "d09964e7-a7f3-4dcb-915f-2e907beb64a8",
           "title": "Login",
           "fullFile": "D:\\Projetos\\mentoria-2.0\\banco-api-tests\\test\\login.test.js",
           "file": "\\test\\login.test.js",
@@ -36,7 +36,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "c90877db-46d4-4d0f-9ff1-0cf22ddb650f",
+              "uuid": "66b03555-57bf-456c-bf6e-d252d50fc5bf",
               "title": "POST /login",
               "fullFile": "D:\\Projetos\\mentoria-2.0\\banco-api-tests\\test\\login.test.js",
               "file": "\\test\\login.test.js",
@@ -47,29 +47,29 @@
                   "title": "Deve retornar 200 com um token em string quando usar credenciais válidas",
                   "fullTitle": "Login POST /login Deve retornar 200 com um token em string quando usar credenciais válidas",
                   "timedOut": false,
-                  "duration": 24,
+                  "duration": 26,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
                   "fail": false,
                   "pending": false,
                   "context": null,
-                  "code": "const response = await request(process.env.URL)\n    .post('/login')\n    .send({ username: process.env.USER_CONTA, senha: process.env.SENHA_CONTA})\n    .set('Content-Type', 'application/json')\nexpect(response.status).eq(200)\nexpect(response.body.token).to.be.a('string')",
+                  "code": "const response = await request(process.env.URL)\n    .post('/login')\n    .send(postLogin)\n    .set('Content-Type', 'application/json')\nexpect(response.status).eq(200)\nexpect(response.body.token).to.be.a('string')",
                   "err": {},
-                  "uuid": "a0f73e07-7749-489d-a6c7-8fe364dc6aaa",
-                  "parentUUID": "c90877db-46d4-4d0f-9ff1-0cf22ddb650f",
+                  "uuid": "eaa39bad-c059-4bc3-8b6c-cfb823db1659",
+                  "parentUUID": "66b03555-57bf-456c-bf6e-d252d50fc5bf",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "a0f73e07-7749-489d-a6c7-8fe364dc6aaa"
+                "eaa39bad-c059-4bc3-8b6c-cfb823db1659"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 24,
+              "duration": 26,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
@@ -85,7 +85,7 @@
           "_timeout": 2000
         },
         {
-          "uuid": "0afce21b-bacb-47af-a60c-84bd03a63272",
+          "uuid": "98e12540-a4d4-4ae2-9cdc-63f0de6f6efa",
           "title": "Testes de transferência",
           "fullFile": "D:\\Projetos\\mentoria-2.0\\banco-api-tests\\test\\transferencias.test.js",
           "file": "\\test\\transferencias.test.js",
@@ -94,28 +94,47 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "8b434c3f-bc8f-43cf-93db-26c46185d5ac",
+              "uuid": "339ee669-dd7f-4abd-82fe-4cc3232a8234",
               "title": "POST /transferencias",
               "fullFile": "D:\\Projetos\\mentoria-2.0\\banco-api-tests\\test\\transferencias.test.js",
               "file": "\\test\\transferencias.test.js",
-              "beforeHooks": [],
+              "beforeHooks": [
+                {
+                  "title": "\"before each\" hook in \"POST /transferencias\"",
+                  "fullTitle": "Testes de transferência POST /transferencias \"before each\" hook in \"POST /transferencias\"",
+                  "timedOut": false,
+                  "duration": 5,
+                  "state": null,
+                  "speed": null,
+                  "pass": false,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "token = await gerarToken('lucas.santos','123456')",
+                  "err": {},
+                  "uuid": "669419e6-d20a-4a5a-9012-1cbf7983c81f",
+                  "parentUUID": "339ee669-dd7f-4abd-82fe-4cc3232a8234",
+                  "isHook": true,
+                  "skipped": false
+                }
+              ],
               "afterHooks": [],
               "tests": [
                 {
                   "title": "Deve transferir R$10,00 ou mais com sucesso",
                   "fullTitle": "Testes de transferência POST /transferencias Deve transferir R$10,00 ou mais com sucesso",
                   "timedOut": false,
-                  "duration": 68,
+                  "duration": 17,
                   "state": "passed",
-                  "speed": "medium",
+                  "speed": "fast",
                   "pass": true,
                   "fail": false,
                   "pending": false,
                   "context": null,
-                  "code": "const token = await gerarToken('lucas.santos','123456')\nconst respostaTransferencia = await request(process.env.URL)\n    .post('/transferencias')\n    .set('Content-Type','application/json')\n    .set('Authorization',`Bearer ${token}`)\n    .send({\n        contaOrigem: 1,\n        contaDestino: 2,\n        valor: 1000,\n        token: '' \n        }\n    )\n    expect(respostaTransferencia.status).eq(201)",
+                  "code": "const bodyTransferencias = { ...postTransferencias }\nconst respostaTransferencia = await request(process.env.URL)\n    .post('/transferencias')\n    .set('Content-Type','application/json')\n    .set('Authorization',`Bearer ${token}`)\n    .send(bodyTransferencias)\n    expect(respostaTransferencia.status).eq(201)",
                   "err": {},
-                  "uuid": "153ada20-6134-4729-bafa-c7153f3d3ec2",
-                  "parentUUID": "8b434c3f-bc8f-43cf-93db-26c46185d5ac",
+                  "uuid": "ec47f295-7927-4690-af6a-d0a21370ed47",
+                  "parentUUID": "339ee669-dd7f-4abd-82fe-4cc3232a8234",
                   "isHook": false,
                   "skipped": false
                 },
@@ -123,30 +142,30 @@
                   "title": "Não deve transferir valores menores de R$10,00",
                   "fullTitle": "Testes de transferência POST /transferencias Não deve transferir valores menores de R$10,00",
                   "timedOut": false,
-                  "duration": 8,
+                  "duration": 3,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
                   "fail": false,
                   "pending": false,
                   "context": null,
-                  "code": "const token = await gerarToken('lucas.santos','123456')\nconst respostaTransferencia = await request(process.env.URL)\n    .post('/transferencias')\n    .set('Content-Type','application/json')\n    .set('Authorization',`Bearer ${token}`)\n    .send({\n        contaOrigem: 1,\n        contaDestino: 2,\n        valor: 7,\n        token: '' \n        }\n    )\nexpect(respostaTransferencia.status).eq(422)\nexpect(respostaTransferencia.body.error).to.eq('O valor da transferência deve ser maior ou igual a R$10,00.')",
+                  "code": "const bodyTransferencias = { ...postTransferencias }\nbodyTransferencias.valor = 7\nconst respostaTransferencia = await request(process.env.URL)\n    .post('/transferencias')\n    .set('Content-Type','application/json')\n    .set('Authorization',`Bearer ${token}`)\n    .send(bodyTransferencias)\nexpect(respostaTransferencia.status).eq(422)\nexpect(respostaTransferencia.body.error).to.eq('O valor da transferência deve ser maior ou igual a R$10,00.')",
                   "err": {},
-                  "uuid": "646c8a60-db27-4f60-87b7-54d0bf1a251d",
-                  "parentUUID": "8b434c3f-bc8f-43cf-93db-26c46185d5ac",
+                  "uuid": "8850611b-8d52-4049-8e01-d71b66abab4a",
+                  "parentUUID": "339ee669-dd7f-4abd-82fe-4cc3232a8234",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "153ada20-6134-4729-bafa-c7153f3d3ec2",
-                "646c8a60-db27-4f60-87b7-54d0bf1a251d"
+                "ec47f295-7927-4690-af6a-d0a21370ed47",
+                "8850611b-8d52-4049-8e01-d71b66abab4a"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 76,
+              "duration": 20,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
